@@ -1,0 +1,43 @@
+name: Данные WB и Ozon
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ivbaby-bot
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      KEYS_PASSWORD: ${{ secrets.KEYS_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q openpyxl pillow
+      - name: Ключи
+        run: openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in bot/keys.enc -out bot/api-keys.txt -pass env:KEYS_PASSWORD
+      - name: Топ товаров WB + карточки + Ozon
+        run: python3 bot/export_data.py bot
+      - name: Сохранить результат
+        if: always()
+        run: |
+          if [ -f bot/api-keys.txt ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in bot/keys.enc -out "$RUNNER_TEMP/old.txt" -pass env:KEYS_PASSWORD
+            if ! cmp -s bot/api-keys.txt "$RUNNER_TEMP/old.txt"; then
+              openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in bot/api-keys.txt -out bot/keys.enc -pass env:KEYS_PASSWORD
+            fi
+            rm -f bot/api-keys.txt "$RUNNER_TEMP/old.txt"
+          fi
+          git config user.name "ivbaby-bot"
+          git config user.email "ivbaby-bot@users.noreply.github.com"
+          git add -A bot
+          if ! git diff --cached --quiet; then
+            git commit -m "Данные WB и Ozon: $(date -u +%F)"
+            git pull --rebase -q origin main && git push -q origin HEAD:main
+          fi

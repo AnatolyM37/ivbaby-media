@@ -1,0 +1,4 @@
+bot/api-keys.txt
+bot/comp.json
+__pycache__/
+*.pyc
