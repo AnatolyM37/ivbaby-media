@@ -15,22 +15,31 @@ jobs:
     env:
       KEYS_PASSWORD: ${{ secrets.KEYS_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - run: pip install -q openpyxl pillow
       - name: Ключи
-        run: openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in bot/keys.enc -out bot/api-keys.txt -pass env:KEYS_PASSWORD
+        run: |
+          KP="$(printf '%s' "$KEYS_PASSWORD" | tr -d '[:space:]')"
+          echo "Длина пароля в секрете KEYS_PASSWORD: ${#KP} (должно быть 43)"
+          if [ -z "$KP" ]; then echo "::error::Секрет KEYS_PASSWORD не задан: Settings → Secrets and variables → Actions"; exit 1; fi
+          echo "KP=$KP" >> "$GITHUB_ENV"
+          echo "::add-mask::$KP"
+          if ! openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in bot/keys.enc -out bot/api-keys.txt -pass env:KP; then
+            rm -f bot/api-keys.txt
+            echo "::error::Пароль в секрете KEYS_PASSWORD неверный — проверьте, что вставлен целиком"; exit 1
+          fi
       - name: Публикация сторис
         run: python3 bot/stories.py bot
       - name: Сохранить результат
         if: always()
         run: |
-          if [ -f bot/api-keys.txt ]; then
-            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in bot/keys.enc -out "$RUNNER_TEMP/old.txt" -pass env:KEYS_PASSWORD
+          if [ -f bot/api-keys.txt ] && [ -n "$KP" ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in bot/keys.enc -out "$RUNNER_TEMP/old.txt" -pass env:KP
             if ! cmp -s bot/api-keys.txt "$RUNNER_TEMP/old.txt"; then
-              openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in bot/api-keys.txt -out bot/keys.enc -pass env:KEYS_PASSWORD
+              openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in bot/api-keys.txt -out bot/keys.enc -pass env:KP
             fi
             rm -f bot/api-keys.txt "$RUNNER_TEMP/old.txt"
           fi
