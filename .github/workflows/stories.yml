@@ -22,7 +22,7 @@ jobs:
       - run: pip install -q openpyxl pillow
       - name: Ключи
         run: |
-          KP="$(printf '%s' "$KEYS_PASSWORD" | tr -d '[:space:]')"
+          export KP="$(printf '%s' "$KEYS_PASSWORD" | tr -d '[:space:]')"
           echo "Пароль: длина ${#KP} (нужно 32), контрольная сумма $(printf '%s' "$KP" | sha256sum | cut -c1-8)"
           if [ -z "$KP" ]; then echo "::error::Секрет KEYS_PASSWORD не задан: Settings → Secrets and variables → Actions"; exit 1; fi
           echo "KP=$KP" >> "$GITHUB_ENV"
