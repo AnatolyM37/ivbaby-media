@@ -127,11 +127,15 @@
         "#ozon",
         "#481319471"
       ],
-      "status": "planned",
+      "status": "published",
       "ozonSku": "2581693697",
       "type": "reel",
       "video_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/reels/reel_481319471.mp4",
-      "thumb_ms": 1500
+      "thumb_ms": 1500,
+      "media_id": "18104120549530549",
+      "permalink": "https://www.instagram.com/reel/DeNP7SDDVXc/",
+      "published_at": "2026-10-07T23:46+03:00",
+      "tg_message_id": 19
     },
     {
       "id": "p05",
