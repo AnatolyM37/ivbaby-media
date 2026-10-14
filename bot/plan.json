@@ -254,12 +254,16 @@
         "#ozon",
         "#552519921"
       ],
-      "status": "error",
+      "status": "published",
       "ozonSku": "3168656738",
       "type": "reel",
       "video_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/reels/reel_552519921.mp4",
       "thumb_ms": 8000,
-      "error": "CDN не отдаёт ролик reel_552519921.mp4"
+      "error": "CDN не отдаёт ролик reel_552519921.mp4",
+      "media_id": "18070049717771127",
+      "permalink": "https://www.instagram.com/reel/DefPKxMAK8f/",
+      "published_at": "2026-10-14T23:26+03:00",
+      "tg_message_id": 30
     },
     {
       "id": "p09",
