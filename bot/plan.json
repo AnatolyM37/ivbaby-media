@@ -254,11 +254,12 @@
         "#ozon",
         "#552519921"
       ],
-      "status": "planned",
+      "status": "error",
       "ozonSku": "3168656738",
       "type": "reel",
       "video_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/reels/reel_552519921.mp4",
-      "thumb_ms": 8000
+      "thumb_ms": 8000,
+      "error": "reel container error: {'status_code': 'ERROR', 'status': 'ERROR', 'id': '18504323674100680'}"
     },
     {
       "id": "p09",
