@@ -107,6 +107,32 @@ def public_url(filename):
     return f"https://cdn.jsdelivr.net/gh/{MEDIA_REPO}@main/reels/{filename}"
 
 
+def _probe(url):
+    """(код ответа, content-type, длина) — скачивает файл целиком, чтобы CDN его закэшировал."""
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "ivbaby-bot"}), timeout=120) as r:
+            return r.status, r.headers.get("Content-Type", ""), len(r.read())
+    except Exception as e:
+        return getattr(e, "code", 0), "", 0
+
+
+def ready_url(video_url):
+    """jsDelivr иногда отвечает 404 при первом обращении (ещё не забрал файл с GitHub) —
+    тогда Instagram отклоняет ролик. Прогреваем ссылку (сначала с привязкой к коммиту, потом @main),
+    пока CDN не отдаст video/mp4, и возвращаем рабочую."""
+    name = video_url.rsplit("/", 1)[-1]
+    sha = os.environ.get("GITHUB_SHA")
+    cands = ([f"https://cdn.jsdelivr.net/gh/{MEDIA_REPO}@{sha}/reels/{name}"] if sha else []) + [video_url]
+    for attempt in range(6):
+        for u in cands:
+            code, ctype, n = _probe(u)
+            print("CDN", attempt, code, ctype, n, u)
+            if code == 200 and ctype.startswith("video/") and n > 100000:
+                return u
+        time.sleep(20)
+    raise RuntimeError(f"CDN не отдаёт ролик {name}")
+
+
 def publish_url(video_url, caption, env, thumb_ms=1500):
     """Публикует Reels по публичной ссылке на mp4. Возвращает (media_id, permalink)."""
     tok, uid = env["IG_ACCESS_TOKEN"], env["IG_USER_ID"]
