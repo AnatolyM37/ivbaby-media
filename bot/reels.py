@@ -117,20 +117,29 @@ def _probe(url):
 
 
 def ready_url(video_url):
-    """jsDelivr иногда отвечает 404 при первом обращении (ещё не забрал файл с GitHub) —
-    тогда Instagram отклоняет ролик. Прогреваем ссылку (сначала с привязкой к коммиту, потом @main),
-    пока CDN не отдаст video/mp4, и возвращаем рабочую."""
+    """Возвращает рабочую публичную ссылку на ролик для Instagram.
+    jsDelivr иногда кэширует ошибку GitHub (429) под видом video/mp4 на 12 часов,
+    поэтому проверяем, что по ссылке реально лежит файл нужного размера.
+    Порядок: GitHub Pages → jsDelivr (коммит) → jsDelivr (@main) → raw.githubusercontent."""
     name = video_url.rsplit("/", 1)[-1]
+    local = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "reels", name)
+    size = os.path.getsize(local) if os.path.exists(local) else None
+    owner, repo = MEDIA_REPO.split("/")
     sha = os.environ.get("GITHUB_SHA")
-    cands = ([f"https://cdn.jsdelivr.net/gh/{MEDIA_REPO}@{sha}/reels/{name}"] if sha else []) + [video_url]
-    for attempt in range(6):
+    cands = [f"https://{owner.lower()}.github.io/{repo}/reels/{name}"]
+    if sha:
+        cands.append(f"https://cdn.jsdelivr.net/gh/{MEDIA_REPO}@{sha}/reels/{name}")
+    cands += [f"https://cdn.jsdelivr.net/gh/{MEDIA_REPO}@main/reels/{name}",
+              f"https://raw.githubusercontent.com/{MEDIA_REPO}/main/reels/{name}"]
+    for attempt in range(3):
         for u in cands:
             code, ctype, n = _probe(u)
-            print("CDN", attempt, code, ctype, n, u)
-            if code == 200 and ctype.startswith("video/") and n > 100000:
+            ok = code == 200 and (n == size if size else n > 100000)
+            print("CDN", attempt, code, ctype, n, "OK" if ok else "", u)
+            if ok:
                 return u
-        time.sleep(20)
-    raise RuntimeError(f"CDN не отдаёт ролик {name}")
+        time.sleep(15)
+    raise RuntimeError(f"ролик {name} недоступен по публичным ссылкам")
 
 
 def publish_url(video_url, caption, env, thumb_ms=1500):
