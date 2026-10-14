@@ -91,9 +91,9 @@ def upload(path, caption, env, cover_offset_ms=1500):
     raise RuntimeError("reel container timeout")
 
 
-def publish(path, caption, env):
+def publish(path, caption, env, thumb_ms=1500):
     tok, uid = env["IG_ACCESS_TOKEN"], env["IG_USER_ID"]
-    cid = upload(path, caption, env)
+    cid = upload(path, caption, env, thumb_ms)
     pub = _call("POST", f"{API}/{uid}/media_publish", {"creation_id": cid, "access_token": tok})
     info = _call("GET", f"{API}/{pub['id']}", {"fields": "permalink", "access_token": tok})
     return pub["id"], info.get("permalink")

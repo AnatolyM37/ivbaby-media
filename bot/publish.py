@@ -75,7 +75,17 @@ def publish(post, env):
     if post.get("type") == "reel":
         import reels
         caption = post["caption"].strip() + "\n\n" + " ".join(post["hashtags"])
-        return reels.publish_url(post["video_url"], caption, env, post.get("thumb_ms", 1500))
+        thumb = post.get("thumb_ms", 1500)
+        # Сначала загружаем файл из репозитория напрямую в Instagram (не зависит от CDN),
+        # при ошибке — запасной путь по публичной ссылке.
+        local = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "reels",
+                             post["video_url"].rsplit("/", 1)[-1])
+        if os.path.exists(local):
+            try:
+                return reels.publish(local, caption, env, thumb)
+            except Exception as e:
+                print("REEL_UPLOAD_FAILED", post["id"], e, "— пробую по ссылке")
+        return reels.publish_url(post["video_url"], caption, env, thumb)
     children = []
     for src in post["photos"]:
         r = call("POST", f"{API}/{uid}/media", {"image_url": image_url(src), "is_carousel_item": "true",
