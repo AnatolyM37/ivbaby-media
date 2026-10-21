@@ -380,11 +380,15 @@
         "#ozon",
         "#88668054"
       ],
-      "status": "planned",
+      "status": "published",
       "ozonSku": "857790934",
       "type": "reel",
       "video_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/reels/reel_88668054.mp4",
-      "thumb_ms": 1000
+      "thumb_ms": 1000,
+      "media_id": "17987648655120538",
+      "permalink": "https://www.instagram.com/reel/DexK31oAuYN/",
+      "published_at": "2026-10-21T22:34+03:00",
+      "tg_error": "telegram sendVideo: 400 {\"ok\":false,\"error_code\":400,\"description\":\"Bad Request: failed to get HTTP URL content\"}"
     },
     {
       "id": "p13",
