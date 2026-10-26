@@ -248,6 +248,118 @@
       "ozonSku": "3168656738",
       "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-10-29_552519921.jpg",
       "status": "planned"
+    },
+    {
+      "id": "s29",
+      "date": "2026-10-30",
+      "nmId": 99670734,
+      "ozonSku": "857790815",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-10-30_99670734.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s30",
+      "date": "2026-10-31",
+      "nmId": 481319474,
+      "ozonSku": "2581693155",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-10-31_481319474.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s31",
+      "date": "2026-11-01",
+      "nmId": 484246106,
+      "ozonSku": "2576298419",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-01_484246106.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s32",
+      "date": "2026-11-02",
+      "nmId": 151285971,
+      "ozonSku": "1097051454",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-02_151285971.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s33",
+      "date": "2026-11-03",
+      "nmId": 238336145,
+      "ozonSku": "1451811570",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-03_238336145.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s34",
+      "date": "2026-11-04",
+      "nmId": 190709155,
+      "ozonSku": "1294982013",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-04_190709155.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s35",
+      "date": "2026-11-05",
+      "nmId": 186706945,
+      "ozonSku": "1113693396",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-05_186706945.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s36",
+      "date": "2026-11-06",
+      "nmId": 151336873,
+      "ozonSku": "930634073",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-06_151336873.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s37",
+      "date": "2026-11-07",
+      "nmId": 463734615,
+      "ozonSku": "2371669694",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-07_463734615.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s38",
+      "date": "2026-11-08",
+      "nmId": 151285978,
+      "ozonSku": "1097051593",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-08_151285978.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s39",
+      "date": "2026-11-09",
+      "nmId": 188232682,
+      "ozonSku": "1117402128",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-09_188232682.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s40",
+      "date": "2026-11-10",
+      "nmId": 53906485,
+      "ozonSku": "852445500",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-10_53906485.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s41",
+      "date": "2026-11-11",
+      "nmId": 34566431,
+      "ozonSku": "851169477",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-11_34566431.jpg",
+      "status": "planned"
+    },
+    {
+      "id": "s42",
+      "date": "2026-11-12",
+      "nmId": 493757862,
+      "ozonSku": "2717792134",
+      "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-12_493757862.jpg",
+      "status": "planned"
     }
   ]
 }
