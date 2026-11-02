@@ -286,7 +286,8 @@
       "nmId": 151285971,
       "ozonSku": "1097051454",
       "image_url": "https://cdn.jsdelivr.net/gh/AnatolyM37/ivbaby-media@main/stories/story_2026-11-02_151285971.jpg",
-      "status": "planned"
+      "status": "error",
+      "error": "400: {\"error\":{\"message\":\"The requested resource does not exist\",\"type\":\"OAuthException\",\"code\":24,\"error_subcode\":2207006,\"is_transient\":false,\"error_user_title\":\"Contenido multimedia no encontrado\",\"error_user_msg\":\"No se encuentra el contenido multimedia con el identificador 18.508.879.633.100.68"
     },
     {
       "id": "s33",
